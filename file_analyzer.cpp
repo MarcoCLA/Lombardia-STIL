@@ -115,7 +115,7 @@ file_analyzer::file_analyzer(string input_filename, string output_filename) {
 	 */
 	inputfile.open(in_file.c_str());
 	// Assertion to check if the input file exist
-	if(inputfile == NULL) {
+	if(inputfile.is_open()) {
 		cerr << "Input file, with the filename " << in_file
 			<< ", does not exist!" << endl;
 		throw ViolatedPrecondition("Invalid file name");
@@ -126,7 +126,7 @@ file_analyzer::file_analyzer(string input_filename, string output_filename) {
 	 */
 	outputfile.open(out_file.c_str());
 	// Assertion to check if the output file was opened properly
-	if(outputfile == NULL) {
+	if(outputfile.is_open()) {
 		cout << "Output file, with the filename " << out_file
 			<< ", does not exist!" << endl;
 	}

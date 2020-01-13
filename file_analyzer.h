@@ -74,7 +74,7 @@ class file_analyzer {
 	public:
 		// Initialize constants...
 		// Quantization unit of time that is measured in nanoseconds
-		static const int file_analyzer::MEASURE_OF_TIME = 5;
+		static const int MEASURE_OF_TIME = 5;
 		/**
 		 * Flag to indicate that the index of this character in a string
 		 * is invalid

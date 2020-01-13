@@ -7,8 +7,9 @@
 #include <string>
 using namespace std;
 
-class ViolatedPrecondition {
-	public:
-		ViolatedPrecondition();		
-		ViolatedPrecondition(string error_message);
+class ViolatedPrecondition
+{
+public:
+    ViolatedPrecondition();
+    ViolatedPrecondition(string error_message);
 };

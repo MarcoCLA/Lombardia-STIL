@@ -10,8 +10,9 @@
 #include <string>
 using namespace std;
 
-class ViolatedAssertion {
-	public:
-		ViolatedAssertion();		
-		ViolatedAssertion(string error_message);
+class ViolatedAssertion
+{
+public:
+    ViolatedAssertion();
+    ViolatedAssertion(string error_message);
 };

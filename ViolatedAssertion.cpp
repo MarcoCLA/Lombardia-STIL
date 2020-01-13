@@ -11,12 +11,14 @@
 #include "ViolatedAssertion.h"
 using namespace std;
 
-ViolatedAssertion::ViolatedAssertion() {
-	cout << "An assertion has been violated" << endl;
+ViolatedAssertion::ViolatedAssertion()
+{
+    cout << "An assertion has been violated" << endl;
 }
-		
 
-ViolatedAssertion::ViolatedAssertion(string error_message) {
-	cout << "An assertion has been violated" << endl;
-	cout << error_message << endl;
+
+ViolatedAssertion::ViolatedAssertion(string error_message)
+{
+    cout << "An assertion has been violated" << endl;
+    cout << error_message << endl;
 }

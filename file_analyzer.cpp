@@ -182,7 +182,8 @@ void file_analyzer::parse_input()
             cur_token = strtok(temp_buffer, " ");
             while (cur_token != NULL && comment == false)
             {
-                if (!strstr(cur_token, "//")){
+                if (!strstr(cur_token, "//"))
+                {
                     // Insert this token into a list of string tokens
                     list_tokens.push_back(cur_token);
 
@@ -192,7 +193,8 @@ void file_analyzer::parse_input()
                      * Do NOT do any processing after this line since it can be null
                      */
                 }
-                else{
+                else
+                {
                     comment = true;
                 }
             }
@@ -1378,79 +1380,82 @@ void file_analyzer::process_header()
     // Assertion...
     if(w == list_tokens.end())
     {
-        cerr<<"Keyword "<<HEADER<<" is not found!"<<endl;
-        throw ViolatedAssertion("Wrong keyword is used.");
+        cerr<<"Keyword "<<HEADER<<" is not found, skipping!"<<endl;
     }
+    // Header is optional
+    // TODO: Cleanup hardcoded parts
+    else
+    {
+        // Determine the initial number of parentheses encasing the blocks...
+        int num_brackets = list_blocks.size();
+        // Proceed to the first token after the open curly bracket
 
-    // Determine the initial number of parentheses encasing the blocks...
-    int num_brackets = list_blocks.size();
-    // Proceed to the first token after the open curly bracket
-
-    // Skip the keyword for the header...
-    w++;
-    // Skip the opening parenthesis for the block...
-    w++;
-    // Skip the title for the block...
-    w++;
-    // Skip the name for the block...
-    w++;
-    // Skip the format for the block...
-    w++;
-    // Skip the type of file for the block...
-    w++;
-    // Skip the word "File" for the block...
-    w++;
-    // Skip the field for the day of this file's generation...
-    w++;
-
-
-    /**
-     * Since the date/day/month/year fields are strings, and not a string,
-     * process each field as individual string tokens
-     * Also, it is noted that the delimit_string function does not handle
-     * double quotes well..."\""
-     * Hence, I am manually removing the double quotes for this small number
-     * of tokens... As opposed to modifying the delimit_string function.
-     */
+        // Skip the keyword for the header...
+        w++;
+        // Skip the opening parenthesis for the block...
+        w++;
+        // Skip the title for the block...
+        w++;
+        // Skip the name for the block...
+        w++;
+        // Skip the format for the block...
+        w++;
+        // Skip the type of file for the block...
+        w++;
+        // Skip the word "File" for the block...
+        w++;
+        // Skip the field for the day of this file's generation...
+        w++;
 
 
-    // Temporary string to contain the date/day/month/year fields
-    string date_field;
-    // Temporary string to contain current field
-    string cur_field=(*w);
-    // Remove the first character, which is a double quote
-    cur_field.erase(0,1);
-    // Concatenate the date/day/month/year field
-    date_field.insert(date_field.size(),cur_field);
-    date_field.insert(date_field.size()," ");
-
-    // Process the month of this file generation
-    w++;
-    // Concatenate the date/day/month/year field
-    date_field.insert(date_field.size(),(*w));
-    date_field.insert(date_field.size()," ");
-
-    // Process the date of this file generation
-    w++;
-    // Concatenate the date/day/month/year field
-    date_field.insert(date_field.size(),(*w));
-    date_field.insert(date_field.size()," ");
-
-    // Process the year of this file generation
-    w++;
-    cur_field=(*w);
-    // Remove the last two characters, which is a double quote and a semi-colon
-    int s=cur_field.size()-1;
-    cur_field.erase(s,1);
-    s=cur_field.size()-1;
-    cur_field.erase(s,1);
+        /**
+         * Since the date/day/month/year fields are strings, and not a string,
+         * process each field as individual string tokens
+         * Also, it is noted that the delimit_string function does not handle
+         * double quotes well..."\""
+         * Hence, I am manually removing the double quotes for this small number
+         * of tokens... As opposed to modifying the delimit_string function.
+         */
 
 
-    // Concatenate the date/day/month/year field
-    date_field.insert(date_field.size(),cur_field);
+        // Temporary string to contain the date/day/month/year fields
+        string date_field;
+        // Temporary string to contain current field
+        string cur_field=(*w);
+        // Remove the first character, which is a double quote
+        cur_field.erase(0,1);
+        // Concatenate the date/day/month/year field
+        date_field.insert(date_field.size(),cur_field);
+        date_field.insert(date_field.size()," ");
 
-    // Print the respective date/day/month/year field to the output file
-    print_output_ln(date_field);
+        // Process the month of this file generation
+        w++;
+        // Concatenate the date/day/month/year field
+        date_field.insert(date_field.size(),(*w));
+        date_field.insert(date_field.size()," ");
+
+        // Process the date of this file generation
+        w++;
+        // Concatenate the date/day/month/year field
+        date_field.insert(date_field.size(),(*w));
+        date_field.insert(date_field.size()," ");
+
+        // Process the year of this file generation
+        w++;
+        cur_field=(*w);
+        // Remove the last two characters, which is a double quote and a semi-colon
+        int s=cur_field.size()-1;
+        cur_field.erase(s,1);
+        s=cur_field.size()-1;
+        cur_field.erase(s,1);
+
+
+        // Concatenate the date/day/month/year field
+        date_field.insert(date_field.size(),cur_field);
+
+        // Print the respective date/day/month/year field to the output file
+        print_output_ln(date_field);
+    }
 //cout<<"%%%%%%%%%%string is"<<date_field<<endl;
 }
 

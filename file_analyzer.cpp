@@ -177,21 +177,10 @@ void file_analyzer::parse_input()
         {
             // Set whitespace as teh delimiter for tokens
             cur_token = strtok(temp_buffer, " ");
-
-
-            // Acquire the first token...
-            key = cur_token;
-            // Insert the token into a list of string tokens
-            list_tokens.push_back(key);
-
-            cur_token = strtok(NULL, " ");
             while (cur_token != NULL)
             {
-                // Get the current token as an integer from the char array
-                // Move to the next available token
-                key = cur_token;
                 // Insert this token into a list of string tokens
-                list_tokens.push_back(key);
+                list_tokens.push_back(cur_token);
 
                 // Attempt to get the next string token
                 cur_token = strtok(NULL, " ");

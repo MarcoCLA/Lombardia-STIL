@@ -163,6 +163,8 @@ void file_analyzer::parse_input()
      */
     string key;
 
+    bool comment = false;
+
     // Container for tokens in currently enumerated line of the input file
     string cstr = "";
     // While there are any more lines in the text file to be read
@@ -170,6 +172,7 @@ void file_analyzer::parse_input()
     {
         // Read the line's first 1000 characters
         inputfile.getline(temp_buffer,MAX_NUM_OF_CHAR_PER_LINE);
+        comment = false;
         // Convert the C string into a C++ string
         cstr = temp_buffer;
         // If this string is not empty
@@ -177,16 +180,21 @@ void file_analyzer::parse_input()
         {
             // Set whitespace as teh delimiter for tokens
             cur_token = strtok(temp_buffer, " ");
-            while (cur_token != NULL)
+            while (cur_token != NULL && comment == false)
             {
-                // Insert this token into a list of string tokens
-                list_tokens.push_back(cur_token);
+                if (!strstr(cur_token, "//")){
+                    // Insert this token into a list of string tokens
+                    list_tokens.push_back(cur_token);
 
-                // Attempt to get the next string token
-                cur_token = strtok(NULL, " ");
-                /**
-                 * Do NOT do any processing after this line since it can be null
-                 */
+                    // Attempt to get the next string token
+                    cur_token = strtok(NULL, " ");
+                    /**
+                     * Do NOT do any processing after this line since it can be null
+                     */
+                }
+                else{
+                    comment = true;
+                }
             }
         }
     }
